@@ -1,6 +1,8 @@
 #include <iostream>
 #include "..//Solver/List.h"
 
+
+
 /**
 * @brief Точка входа в программу
 * @return 0 в случае успеха
