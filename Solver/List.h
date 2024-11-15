@@ -25,7 +25,7 @@ namespace rut_miit
 			T data;
 			Node* next;
 			Node* prev;
-			Node(T value) :data(value), next(nullptr), prev(nullptr) {}
+			Node(T value) :data(value), next(nullptr), prev(nullptr){}
 		};
 
 		/*
@@ -37,6 +37,11 @@ namespace rut_miit
 		*@brief узел хвоста дэка
 		*/
 		Node* tail;
+
+		/*
+		*@brief Размер дэка
+		*/
+		size_t size;
 	public:
 
 		/**
@@ -131,7 +136,7 @@ namespace rut_miit
 }
 //ДАЛЬШЕ ИДЕТ РЕАЛИЗАЦИЯ МЕТОДОВ КЛАССА
 template <typename T>
-rut_miit::LinkedList<T>::LinkedList() : head(nullptr), tail(nullptr) {}
+rut_miit::LinkedList<T>::LinkedList() : head(nullptr), tail(nullptr), size(0) {}
 
 template <typename T>
 rut_miit::LinkedList<T>::LinkedList(std::initializer_list<T> initList) : LinkedList()
@@ -159,6 +164,7 @@ rut_miit::LinkedList<T>& rut_miit::LinkedList<T>::operator=(const LinkedList& ot
 	LinkedList temp(other);
 	std::swap(this->head, temp.head);
 	std::swap(this->tail, temp.tail);
+	std::swap(this->size, temp.size);
 	return *this;
 }
 
@@ -206,6 +212,7 @@ void rut_miit::LinkedList<T>::push_back(const T& value)
 		tail->next = newNode;
 	}
 	tail = newNode;
+	++this->size;
 }
 
 template <typename T>
@@ -222,6 +229,7 @@ void rut_miit::LinkedList<T>::push_front(const T& value)
 		head->prev = newNode;
 	}
 	head = newNode;
+	++this->size;
 }
 
 template <typename T>
@@ -242,6 +250,7 @@ void rut_miit::LinkedList<T>::pop_back()
 	tail = tail->prev;
 	delete temp;
 	tail->next = nullptr;
+	--this->size;
 }
 
 template <typename T>
@@ -262,6 +271,7 @@ void rut_miit::LinkedList<T>::pop_front()
 	head = head->next;
 	delete temp;
 	head->prev = nullptr;
+	--this->size;
 }
 
 template <typename T>
@@ -270,6 +280,9 @@ void rut_miit::LinkedList<T>::insert(size_t idx, T elem)
 	size_t index = idx;
 	Node* current = head;
 	size_t curr_index = 0;
+	if (idx > size) { // size - это текущее количество элементов в списке
+		throw std::out_of_range("Индекс выходит за границы списка.");
+	}
 	while (curr_index < index)
 	{
 		current = current->next;
@@ -331,8 +344,10 @@ rut_miit::LinkedList<T>::LinkedList(LinkedList<T>&& other) noexcept
 {
 	head = other.head;
 	tail = other.tail;
+	size = other.size;
 	other.head = nullptr;
 	other.tail = nullptr;
+	other.size = nullptr;
 }
 
 template <typename T>
