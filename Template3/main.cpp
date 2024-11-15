@@ -31,5 +31,9 @@ int main()
 
 	list.remove(0);
 	std::cout << "Список после remove(3): " << list << std::endl;
+
+	std::cout << "Первый элемент списка: " << list.get_head_value() << std::endl;
+
+	std::cout << "Последний элемент списка: " << list.get_tail_value() << std::endl;
 	return 0;
 }

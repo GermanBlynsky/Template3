@@ -78,17 +78,17 @@ namespace rut_miit
 		/**
 		* @brief - Фунция преобразования в строку
 		*/
-		std::string toString() const;
+		std::string to_string() const;
 
 		/**
 		* @brief - Функция вставки эллемента в конец списка
 		*/
-		void push_back(T value);
+		void push_back(const T& value);
 
 		/**
 		* @brief - Функция вставки элемента в начало списка
 		*/
-		void push_front(T value);
+		void push_front(const T& value);
 
 		/**
 		* @brief - Функция удаления элемента из конца списка
@@ -109,11 +109,23 @@ namespace rut_miit
 		* @brief - Функция удаления элемента по индексу
 		*/
 		void remove(size_t idx);
+
+		/**
+		* @brief - Функция, возвращающая первый элемент списка
+		*/
+		T get_head_value(); 
+
+		/**
+		* @brief - Функция, возвращающая последний элемент списка
+		*/
+		T get_tail_value();
 	};
+
+
 	template<typename T>
 	std::ostream& operator<<(std::ostream& os, const rut_miit::LinkedList<T>& list)
 	{
-		os << list.toString();
+		os << list.to_string();
 		return os;
 	}
 }
@@ -168,7 +180,7 @@ bool rut_miit::LinkedList<T>::IsEmpty() const
 }
 
 template <typename T>
-std::string rut_miit::LinkedList<T>::toString() const
+std::string rut_miit::LinkedList<T>::to_string() const
 {
 	std::stringstream result;
 	Node* temp = head;
@@ -181,7 +193,7 @@ std::string rut_miit::LinkedList<T>::toString() const
 }
 
 template <typename T>
-void rut_miit::LinkedList<T>::push_back(T value)
+void rut_miit::LinkedList<T>::push_back(const T& value)
 {
 	Node* newNode = new Node(value);
 	newNode->prev = tail;
@@ -197,7 +209,7 @@ void rut_miit::LinkedList<T>::push_back(T value)
 }
 
 template <typename T>
-void rut_miit::LinkedList<T>::push_front(T value)
+void rut_miit::LinkedList<T>::push_front(const T& value)
 {
 	Node* newNode = new Node(value);
 	newNode->next = head;
@@ -252,20 +264,9 @@ void rut_miit::LinkedList<T>::pop_front()
 	head->prev = nullptr;
 }
 
-/*template <typename T>
-std::ostream& operator<<(std::ostream& os, const rut_miit::LinkedList<T>& list)
-{
- os << list.toString();
- return os;
-}
-*/
-
 template <typename T>
 void rut_miit::LinkedList<T>::insert(size_t idx, T elem)
 {
-	if (idx < 0) {
-		throw std::invalid_argument("Wrong value index!");
-	}
 	size_t index = idx;
 	Node* current = head;
 	size_t curr_index = 0;
@@ -332,4 +333,22 @@ rut_miit::LinkedList<T>::LinkedList(LinkedList<T>&& other) noexcept
 	tail = other.tail;
 	other.head = nullptr;
 	other.tail = nullptr;
+}
+
+template <typename T>
+T rut_miit::LinkedList<T>::get_head_value()
+{
+	if (head) {
+		return head->data;
+	}
+	throw std::out_of_range("Список пуст");
+}
+
+template <typename T>
+T rut_miit::LinkedList<T>::get_tail_value()
+{
+	if (tail) {
+		return tail->data;
+	}
+	throw std::out_of_range("Список пуст");
 }
