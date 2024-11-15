@@ -339,15 +339,17 @@ void rut_miit::LinkedList<T>::remove(size_t idx)
 	}
 }
 
+
+
 template <typename T>
-rut_miit::LinkedList<T>::LinkedList(LinkedList<T>&& other) noexcept
+rut_miit::LinkedList<T>::LinkedList(LinkedList<T>&& other) noexcept: LinkedList()
 {
 	head = other.head;
 	tail = other.tail;
 	size = other.size;
 	other.head = nullptr;
 	other.tail = nullptr;
-	other.size = nullptr;
+	other.size = 0;
 }
 
 template <typename T>
