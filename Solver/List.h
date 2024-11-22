@@ -25,7 +25,7 @@ namespace rut_miit
 			T data;
 			Node* next;
 			Node* prev;
-			Node(T value) :data(value), next(nullptr), prev(nullptr) {}
+			Node(T value) :data(value), next(nullptr), prev(nullptr){}
 		};
 
 		/*
@@ -335,6 +335,8 @@ void rut_miit::LinkedList<T>::remove(size_t index)
 		}
 	}
 }
+
+
 
 template <typename T>
 rut_miit::LinkedList<T>::LinkedList(LinkedList<T>&& other) noexcept : LinkedList()
