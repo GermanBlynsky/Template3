@@ -14,7 +14,7 @@ namespace SolverTest
 		{
 			using namespace rut_miit;
 			LinkedList<int> list;
-			Assert::IsTrue(list.IsEmpty());
+			Assert::IsTrue(list.is_empty());
 		}
 		TEST_METHOD(PushFrontOneData_Success)
 		{
@@ -49,6 +49,12 @@ namespace SolverTest
 			Assert::IsTrue(list1.to_string() == list2.to_string());
 		}
 
+		TEST_METHOD(OperatorMoveInt_ValidData_Success)
+		{
+			using namespace rut_miit;
+			LinkedList list1{ 1,2 }, list2 = std::move(list1);
+			Assert::IsTrue(list2.get_head_value() == 1 && list2.get_tail_value() == 2);
+		}
 		///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		TEST_METHOD(PushFrontOneData_Success_TestClass)
