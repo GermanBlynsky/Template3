@@ -10,6 +10,8 @@ namespace rut_miit
 
 	/**
 	* @brief - Оператор сдвига влево
+	* @param os - Ссылка на выходной поток
+	* @param list - Ссылка на связанный список, который будет выводиться
 	*/
 	template <typename T>
 	std::ostream& operator<<(std::ostream& os, const rut_miit::LinkedList<T>& list);
@@ -25,7 +27,7 @@ namespace rut_miit
 			T data;
 			Node* next;
 			Node* prev;
-			Node(T value) :data(value), next(nullptr), prev(nullptr){}
+			Node(T value) :data(value), next(nullptr), prev(nullptr) {}
 		};
 
 		/*
@@ -51,6 +53,7 @@ namespace rut_miit
 
 		/**
 		* @brief - Конструктор, создающий список по значениям, заданным пользователем
+		* @param initList - Списком инициализаци, который можно заполнить вручную или дать заполнить пользователю
 		*/
 		LinkedList(std::initializer_list<T> initList);
 
@@ -67,11 +70,13 @@ namespace rut_miit
 
 		/**
 		* @brief - Конструктор перемещения
+		* @param other - ссылкой на другой объект класса LinkedList
 		*/
 		LinkedList(LinkedList&& other) noexcept;
 
 		/**
-		* @brief - Оператор перемещения
+		* @brief - Оператор присваивания копированием
+		* @param other - ссылкой на другой объект класса LinkedList
 		*/
 		LinkedList& operator=(const LinkedList& other);
 
@@ -87,11 +92,13 @@ namespace rut_miit
 
 		/**
 		* @brief - Функция вставки эллемента в конец списка
+		* @paramm value - Значение, которое будет принимать новый узел
 		*/
 		void push_back(const T& value);
 
 		/**
 		* @brief - Функция вставки элемента в начало списка
+		* @paramm value - Значение, которое будет принимать новый узел
 		*/
 		void push_front(const T& value);
 
@@ -192,7 +199,7 @@ std::string rut_miit::LinkedList<T>::to_string() const
 	Node* temp = head;
 	while (temp != nullptr)
 	{
-		result << temp->data << " ";
+		result << temp->data;
 		temp = temp->next;
 	}
 	return result.str();
@@ -281,7 +288,7 @@ void rut_miit::LinkedList<T>::insert(size_t index, const T& elem)
 	Node* current = head;
 	size_t curr_temp_index = 0;
 	if (index >= size) { // size - это текущее количество элементов в списке
-		throw std::out_of_range("Индекс выходит за границы списка.");
+		throw std::out_of_range("Некоректное значение индекса, выход за границы списка");
 	}
 	while (curr_temp_index < temp_index)
 	{
@@ -316,6 +323,10 @@ void rut_miit::LinkedList<T>::remove(size_t index)
 		pop_front();
 	}
 	else {
+		if (index >= size) {
+			throw std::out_of_range("Некоректное значение индекса, выход за границы списка");
+		}
+		else{
 		size_t temp_index = index;
 		Node* current = head;
 		size_t curr_temp_index = 0;
@@ -332,6 +343,7 @@ void rut_miit::LinkedList<T>::remove(size_t index)
 		}
 		if (tmp_prev != nullptr) {
 			tmp_prev->next = tmp_next;
+		}
 		}
 	}
 }

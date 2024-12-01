@@ -26,10 +26,10 @@ int main()
 	list.pop_back();
 	std::cout << "Список после pop_back(): " << list << std::endl;
 
-	list.insert(3, 10);
+	list.insert(3, 7);
 	std::cout << "Список после insert " << list << std::endl;
 
-	list.remove(0);
+	list.remove(3);
 	std::cout << "Список после remove(3): " << list << std::endl;
 
 	std::cout << "Первый элемент списка: " << list.get_head_value() << std::endl;
