@@ -135,6 +135,12 @@
     <ProjectReference Include="..\Solver\Solver.vcxproj">
       <Project>{873e4e46-8aa1-4627-bf19-8f7bf79816c6}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\TestClass\TestClass.vcxproj">
+      <Project>{570f2956-708e-41ec-a3fc-b8008a53e395}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
